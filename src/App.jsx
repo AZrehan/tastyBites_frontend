@@ -1,8 +1,12 @@
 import {
     BrowserRouter,
     Routes,
-    Route
+    Route,
+    Navigate
 } from "react-router-dom";
+
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
 
 
 // Public pages
@@ -11,6 +15,7 @@ import MenuDetails from "./pages/MenuDetails";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import AdminLogin from "./pages/AdminLogin";
+import PastOrders from "./pages/PastOrders";
 
 
 // Admin pages
@@ -26,6 +31,9 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 
 function App() {
+
+    const { user } = useContext(AuthContext);
+
 
     return (
         <BrowserRouter>
@@ -63,6 +71,20 @@ function App() {
                 <Route
                     path="/admin-login"
                     element={<AdminLogin />}
+                />
+
+
+                {/* =========================
+                    USER PAST ORDERS
+                ========================= */}
+
+                <Route
+                    path="/past-orders"
+                    element={
+                        user && user.role === "User"
+                            ? <PastOrders />
+                            : <Navigate to="/login" />
+                    }
                 />
 
 

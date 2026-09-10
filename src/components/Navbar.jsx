@@ -70,6 +70,11 @@ function Navbar() {
                     {/* Normal User */}
                     {user && user.role === "User" && (
                         <>
+                            {/* NEW: Past Orders */}
+                            <Link to="/past-orders">
+                                Past Orders
+                            </Link>
+
                             <span>
                                 Hi, {user.name}
                             </span>
